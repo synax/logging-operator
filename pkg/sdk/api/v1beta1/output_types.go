@@ -35,6 +35,7 @@ type OutputSpec struct {
 	KafkaOutputConfig         *output.KafkaOutputConfig         `json:"kafka,omitempty"`
 	CloudWatchOutput          *output.CloudWatchOutput          `json:"cloudwatch,omitempty"`
 	KinesisStreamOutputConfig *output.KinesisStreamOutputConfig `json:"kinesisStream,omitempty"`
+	LogDNAOutput              *output.LogDNAOutput              `json:"logdna,omitempty"`
 }
 
 // OutputStatus defines the observed state of Output
