@@ -15,14 +15,21 @@
 package output
 
 import (
-	"github.com/banzaicloud/logging-operator/pkg/sdk/model/secret"
 	"github.com/banzaicloud/logging-operator/pkg/sdk/model/types"
+	"github.com/banzaicloud/operator-tools/pkg/secret"
 )
 
 // +kubebuilder:object:generate=true
 // +docName:"[LogDNA Output](https://github.com/logdna/fluent-plugin-logdna)"
 // This plugin has been designed to output logs to LogDNA. Example Deployment: [Transport Nginx Access Logs into LogDNA with Logging Operator](../../examples/logging_output_logdna.yaml)
 type _docLogDNA interface{}
+
+// +name:"LogDNA"
+// +url:"https://github.com/logdna/fluent-plugin-logdna"
+// +version:"more info"
+// +description:"Send your logs to LogDNA"
+// +status:"GA"
+type _metaLogDNA interface{}
 
 // +kubebuilder:object:generate=true
 // +docName:"LogDNA"
