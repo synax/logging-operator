@@ -19,14 +19,16 @@ import (
 	"io/ioutil"
 
 	"emperror.dev/errors"
+	loggingv1beta1 "github.com/banzaicloud/logging-operator/pkg/sdk/api/v1beta1"
+	"github.com/banzaicloud/logging-operator/pkg/sdk/static/gen/crds"
+	"github.com/banzaicloud/logging-operator/pkg/sdk/static/gen/rbac"
 	"github.com/banzaicloud/operator-tools/pkg/reconciler"
 	"github.com/banzaicloud/operator-tools/pkg/types"
-	"github.com/banzaicloud/logging-operator/pkg/sdk/api/v1beta1
 
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	rbacv1 "k8s.io/api/rbac/v1"
-	apiv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -72,19 +74,19 @@ func ResourceBuilders(object interface{}) []reconciler.ResourceBuilder {
 		config.build(ClusterRoleBinding),
 		config.build(ServiceAccount),
 		func() (runtime.Object, reconciler.DesiredState, error) {
-			return CRD(config, v1beta1.GroupVersion.Group, "logging")
+			return CRD(config, loggingv1beta1.GroupVersion.Group, "logging")
 		},
 		func() (runtime.Object, reconciler.DesiredState, error) {
-			return CRD(config, v1beta1.GroupVersion.Group, "flow")
+			return CRD(config, loggingv1beta1.GroupVersion.Group, "flow")
 		},
 		func() (runtime.Object, reconciler.DesiredState, error) {
-			return CRD(config, v1beta1.GroupVersion.Group, "clusterflow")
+			return CRD(config, loggingv1beta1.GroupVersion.Group, "clusterflow")
 		},
 		func() (runtime.Object, reconciler.DesiredState, error) {
-			return CRD(config, v1beta1.GroupVersion.Group, "output")
+			return CRD(config, loggingv1beta1.GroupVersion.Group, "output")
 		},
 		func() (runtime.Object, reconciler.DesiredState, error) {
-			return CRD(config, v1beta1.GroupVersion.Group, "clusteroutput")
+			return CRD(config, loggingv1beta1.GroupVersion.Group, "clusteroutput")
 		},
 	}
 	return resources
@@ -95,7 +97,7 @@ func SetupWithBuilder(builder *builder.Builder) {
 }
 
 func CRD(config *ComponentConfig, group string, kind string) (runtime.Object, reconciler.DesiredState, error) {
-	crd := &apiv1beta1.CustomResourceDefinition{
+	crd := &v1beta1.CustomResourceDefinition{
 		ObjectMeta: v1.ObjectMeta{
 			Name: fmt.Sprintf("%s.%s", kind, group),
 		},
