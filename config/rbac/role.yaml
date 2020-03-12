@@ -10,6 +10,7 @@ rules:
   - ""
   resources:
   - configmaps
+  - secrets
   verbs:
   - create
   - delete
@@ -21,7 +22,18 @@ rules:
 - apiGroups:
   - ""
   resources:
+  - namespaces
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
   - persistentvolumeclaims
+  - pods
+  - serviceaccounts
   - services
   verbs:
   - create
@@ -34,6 +46,7 @@ rules:
 - apiGroups:
   - apps
   resources:
+  - daemonsets
   - statefulsets
   verbs:
   - create
@@ -72,7 +85,11 @@ rules:
 - apiGroups:
   - logging.banzaicloud.io
   resources:
+  - clusterflows
+  - clusteroutputs
+  - flows
   - loggings
+  - outputs
   verbs:
   - create
   - delete
@@ -93,6 +110,21 @@ rules:
   - monitoring.coreos.com
   resources:
   - servicemonitors
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - clusterrolebindings
+  - clusterroles
+  - rolebindings
+  - roles
   verbs:
   - create
   - delete
