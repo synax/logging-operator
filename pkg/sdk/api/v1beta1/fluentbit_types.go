@@ -35,6 +35,8 @@ type FluentbitSpec struct {
 	Tolerations []corev1.Toleration         `json:"tolerations,omitempty"`
 	Metrics     *Metrics                    `json:"metrics,omitempty"`
 	Security    *Security                   `json:"security,omitempty"`
+	// +kubebuilder:validation:enum=error,warning,info,debug
+	LogLevel string `json:"logLevel,omitempty"`
 	// +docLink:"volume.KubernetesVolume,https://github.com/banzaicloud/operator-tools/tree/master/docs/types"
 	PositionDB volume.KubernetesVolume `json:"positiondb,omitempty"`
 	// Deprecated, use positiondb
