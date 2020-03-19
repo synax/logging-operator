@@ -34,6 +34,7 @@ type fluentbitInputConfig struct {
 
 type fluentBitConfig struct {
 	Namespace string
+	LogLevel  string
 	TLS       struct {
 		Enabled   bool
 		SharedKey string
@@ -119,6 +120,11 @@ func (r *Reconciler) configSecret() (runtime.Object, reconciler.DesiredState, er
 		Input:         fluentbitInput,
 		Filter:        fluentbitFilter,
 		BufferStorage: fluentbitBufferStorage,
+	}
+	if r.Logging.Spec.FluentbitSpec.LogLevel != "" {
+		input.LogLevel = r.Logging.Spec.FluentbitSpec.LogLevel
+	} else {
+		input.LogLevel = "info"
 	}
 	if r.Logging.Spec.FluentbitSpec.TargetHost != "" {
 		input.TargetHost = r.Logging.Spec.FluentbitSpec.TargetHost
